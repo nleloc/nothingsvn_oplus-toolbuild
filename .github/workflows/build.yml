@@ -7,6 +7,18 @@ on:
         description: 'URL of the ROM to build'
         required: true
       
+      TOOLBOX:
+        description: 'Include Kaorios Toolbox support'
+        required: true
+        type: boolean
+        default: true
+
+      MODROM:
+        description: 'Include NT Mods'
+        required: true
+        type: boolean
+        default: true
+      
 jobs:
   Initialize:
     runs-on: ubuntu-latest
@@ -47,9 +59,30 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@main
 
-      - name: Install Stuff
+      - name: Setup dependency (Install & remove stuff)
         run: |
           sudo bash setup.sh
+
+      # trash code begin
+      - name: Config 'config.env' file
+        run: |
+          work_dir=$(pwd)
+          # Toolbox
+          if [ "${{ github.event.inputs.TOOLBOX }}" = "false" ]; then
+            sed -i 's/^install_toolbox=true/install_toolbox=false/g' config.env
+          fi
+
+          # Mod rom
+          if [ "${{ github.event.inputs.MODROM }}" = "false" ]; then
+            sed -i 's/^install_mods=true/install_mods=false/g' config.env
+          fi
+
+          config_mod=$(grep "install_mods" $work_dir/config.env | cut -d '=' -f 2)
+          config_toolbox=$(grep "install_toolbox" $work_dir/config.env | cut -d '=' -f 2)
+
+          echo "[CONFIG] - Install NT Mods: ${config_mod}"
+          echo "[CONFIG] - Include Kaorios Toolbox support: ${config_toolbox}"
+      # trash code end
         
       - name: Giving permission
         run: |

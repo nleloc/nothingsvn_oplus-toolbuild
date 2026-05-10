@@ -5,6 +5,7 @@ work_dir=$(pwd)
 source $work_dir/bin/ddevice/fetchINFO.sh
 BASE_REGION=$(cat $work_dir/bin/ddevice/rom_region.txt)
 insmod=$(grep "install_mods" $work_dir/config.env | cut -d '=' -f 2)
+toolbox=$(grep "install_toolbox" $work_dir/config.env | cut -d '=' -f 2)
 
 if [[ $insmod == "true" ]]; then
 if [[ $ROMVERSION == "16.0.5" && $ANDROID_VER == "16" ]]; then
@@ -18,4 +19,7 @@ fi
 
 bash $work_dir/bin/package/Universal/insfile.sh
 bash $work_dir/bin/package/UpdateFile/insupdate.sh
-bash $work_dir/bin/package/FrameworkPatcher/insfw.sh
+
+if [[ $toolbox == "true" ]]; then
+    bash $work_dir/bin/package/FrameworkPatcher/insfw.sh
+fi

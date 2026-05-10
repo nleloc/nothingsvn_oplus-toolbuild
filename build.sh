@@ -4,7 +4,8 @@
 baserom="$1"
 localbuild="$2"
 work_dir=$(pwd)
-tools_dir=${work_dir}/bin/$(uname)/$(uname -m)export PATH=$(pwd)/bin/$(uname)/$(uname -m)/:$PATH
+tools_dir=${work_dir}/bin/$(uname)/$(uname -m)
+export PATH=$(pwd)/bin/$(uname)/$(uname -m)/:$PATH
 chmod 777 ${work_dir}/bin/*
 chmod 777 ${work_dir}/bin/Linux/x86_64/*
 source $work_dir/functions.sh
@@ -13,7 +14,7 @@ source "$work_dir/bin/ddevice/getROM.sh" "$baserom"
 
 if unzip -l ${baserom} | grep -q "payload.bin"; then
     baserom_type="payload"
-    echo "[UNPACK] - This is payload.bin ROM!Vaildation..."
+    echo "[UNPACK] - This is payload.bin ROM! Vaildation..."
     super_list="system system_ext product vendor odm my_product my_engineering my_stock my_carrier my_region my_bigball my_heytap my_manifest vendor_dlkm system_dlkm odm_dlkm system_ext_dlkm product_dlkm"
     echo "[UNPACK] - ROM validation passed."
 else

@@ -33,13 +33,13 @@
 
 ```
 ┌──────────────┐     ┌──────────────┐     ┌──────────────┐     ┌──────────────┐
-│   Download   │────▶│    Unpack     │────▶│    Modify     │────▶│    Repack     │
-│   Base ROM   │     │  payload.bin  │     │  Partitions   │     │   EXT/EROFS   │
+│   Download   │───▶│    Unpack    │───▶│    Modify    │───▶│    Repack    │
+│   Base ROM   │     │  payload.bin │     │  Partitions  │     │   EXT/EROFS  │
 └──────────────┘     └──────────────┘     └──────────────┘     └──────┬───────┘
                                                                       │
                      ┌──────────────┐     ┌──────────────┐            │
-                     │   Upload to  │◀────│   Pack ROM   │◀───────────┘
-                     │    (Cloud)    │     │    (.zip)     │
+                     │   Upload to  │◀───│   Pack ROM   │◀──────────┘
+                     │    (Cloud)   │     │    (.zip)    │
                      └──────────────┘     └──────────────┘
 ```
 
